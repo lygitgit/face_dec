@@ -1,0 +1,11 @@
+path: /home/lenovo/New/ultralyticsPro-main/data/crowdhuman
+train: images/train
+val: images/val
+#test: test.txt
+
+#number of classes
+nc: 3
+
+# class names
+names: ['head', 'full body', 'visible body']
+

@@ -1,0 +1,108 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "name": "face_track_inference",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",
+            "args": [
+                "--weights", "pretrained/yolo11s.pt",
+                "--source", "${workspaceFolder}/test/MOT17-08.mp4",
+                "--agnostic-nms",
+                "--view-img",
+                "--classes", "0",
+                "--conf-thres", "0.5",
+                "--img-size", "640",
+                "--track_buffer", "150",
+                "--track_high_thresh", "0.7",
+                "--min_box_area", "400",
+
+                // 1代表此时不通过IOU筛选掉旧轨迹（不会因为iou没匹配上而添加新轨迹）
+                "--proximity_thresh", "1",
+                
+                "--ReID-emb-name", "faceReID_FR",
+                "--fast-reid-config", "model/timm_face/face_ReID_vit_8_112.yaml",
+                // "--fast-reid-weights", "weights/ReID/mot17_sbs_S50.pth",
+
+                "--with-reid",
+
+                // "--view_img",
+            ],
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": ""
+            },
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "python": "/home/lenovo/miniconda3/envs/deepsort_copy/bin/python"
+        },
+
+        {
+            "name": "face_emb_inference",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/model/timm-face-main/infer.py",
+            "args": [
+                "--model", "vit_tiny_patch8_112",
+                "--dataset", "IJBB",
+            ],
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": ""
+            },
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "python": "/home/lenovo/miniconda3/envs/deepsort_py310/bin/python"
+        },
+
+        {
+            "name": "face_track_visualize",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/visualize.py",
+            "args": [
+                "--weights", "pretrained/yolo11s.pt",
+                "--source", "${workspaceFolder}/test/MOT17-08.mp4",
+                "--agnostic-nms",
+                "--view-img",
+                "--classes", "0",
+                "--conf-thres", "0.5",
+                "--img-size", "640",
+                "--track_buffer", "150",
+                "--track_high_thresh", "0.7",
+                "--min_box_area", "400",
+                "--ReID-emb-name", "faceReID_FR",
+                "--fast-reid-config", "model/timm_face/face_ReID_vit_8_112.yaml",
+                // "--fast-reid-weights", "weights/ReID/mot17_sbs_S50.pth",
+
+                "--with-reid",
+            ],
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": ""
+            },
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "python": "/home/lenovo/miniconda3/envs/deepsort_py310/bin/python"
+        },
+
+        {
+            "name": "face_recognize",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/model/face_recognize/face_insight.py",
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": ""
+            },
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "python": "/home/lenovo/miniconda3/envs/deepsort_py310/bin/python"
+        },
+    ]
+}
