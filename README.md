@@ -43,7 +43,7 @@ conda install -c conda-forge libstdcxx-ng
 
 # for facial attribution det
 pip install onnxruntime-gpu
-pip install pillow opencv-python scikit-image
+pip install scikit-image
 pip install transformers
 ```
 
